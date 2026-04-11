@@ -1,0 +1,105 @@
+{
+  "info": {
+    "longName": "Apple Inc.",
+    "shortName": "Apple",
+    "sector": "Technology",
+    "industry": "Consumer Electronics",
+    "country": "United States",
+    "marketCap": 3200000000000,
+    "fullTimeEmployees": 164000,
+    "website": "https://www.apple.com",
+    "longBusinessSummary": "Apple Inc. designs, manufactures, and markets smartphones, personal computers, tablets, wearables, and accessories worldwide.",
+    "trailingPE": 32.5,
+    "forwardPE": 28.9,
+    "priceToBook": 48.2,
+    "pegRatio": 2.7,
+    "trailingEps": 6.42,
+    "revenueGrowth": 0.045,
+    "earningsGrowth": 0.071,
+    "grossMargins": 0.462,
+    "operatingMargins": 0.302,
+    "profitMargins": 0.255,
+    "returnOnEquity": 1.52,
+    "debtToEquity": 155.0,
+    "currentRatio": 0.88,
+    "dividendYield": 0.0051,
+    "beta": 1.24
+  },
+  "history": [
+    {"date": "2026-04-07", "open": 225.10, "high": 228.50, "low": 224.80, "close": 227.40, "volume": 54000000},
+    {"date": "2026-04-08", "open": 227.60, "high": 229.90, "low": 226.10, "close": 229.10, "volume": 48000000},
+    {"date": "2026-04-09", "open": 229.30, "high": 230.80, "low": 227.90, "close": 228.20, "volume": 51000000},
+    {"date": "2026-04-10", "open": 228.40, "high": 230.50, "low": 227.70, "close": 230.10, "volume": 49500000},
+    {"date": "2026-04-11", "open": 230.20, "high": 232.10, "low": 229.50, "close": 231.80, "volume": 52000000}
+  ],
+  "financials": {
+    "income": [
+      {
+        "period_end": "2025-12-31",
+        "period_type": "quarterly",
+        "line_items": {
+          "Total Revenue": 124000000000,
+          "Gross Profit": 57000000000,
+          "Operating Income": 38000000000,
+          "Net Income": 33000000000
+        }
+      },
+      {
+        "period_end": "2025-09-30",
+        "period_type": "quarterly",
+        "line_items": {
+          "Total Revenue": 95000000000,
+          "Gross Profit": 43000000000,
+          "Operating Income": 28000000000,
+          "Net Income": 24000000000
+        }
+      }
+    ],
+    "balance": [
+      {
+        "period_end": "2025-12-31",
+        "period_type": "quarterly",
+        "line_items": {
+          "Total Assets": 365000000000,
+          "Total Liabilities": 290000000000,
+          "Total Equity": 75000000000,
+          "Cash And Equivalents": 65000000000
+        }
+      }
+    ],
+    "cashflow": [
+      {
+        "period_end": "2025-12-31",
+        "period_type": "quarterly",
+        "line_items": {
+          "Operating Cash Flow": 39000000000,
+          "Capital Expenditure": -3000000000,
+          "Free Cash Flow": 36000000000
+        }
+      }
+    ]
+  },
+  "news": [
+    {
+      "title": "Apple reports record Q1 earnings on strong iPhone demand",
+      "source": "Reuters",
+      "url": "https://example.com/news/aapl-q1-earnings",
+      "published": "2026-04-05T14:30:00+00:00",
+      "snippet": "Apple beat analyst expectations with Q1 revenue of $124B, up 4.5% YoY."
+    },
+    {
+      "title": "Analysts raise price targets following Apple Intelligence rollout",
+      "source": "Bloomberg",
+      "url": "https://example.com/news/aapl-ai-rollout",
+      "published": "2026-03-28T11:00:00+00:00",
+      "snippet": "Major analysts raised AAPL price targets after early adoption data for Apple Intelligence features."
+    }
+  ],
+  "earnings": {
+    "next_earnings_date": "2026-07-30",
+    "last_earnings_date": "2026-01-30",
+    "last_reported_eps": 2.40,
+    "last_estimated_eps": 2.33,
+    "last_surprise_pct": 3.0
+  }
+}

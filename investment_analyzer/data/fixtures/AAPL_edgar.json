@@ -1,0 +1,40 @@
+{
+  "tickers": {
+    "AAPL": "320193",
+    "MSFT": "789019"
+  },
+  "filings": [
+    {
+      "form_type": "10-K",
+      "filed_date": "2025-10-30",
+      "period_of_report": "2025-09-28",
+      "accession_number": "0000320193-25-000001",
+      "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019325000001/aapl-20250928.htm",
+      "extracted_text": "Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations. The Company experienced strong demand for iPhone 16 and Apple Intelligence features. Services revenue grew 14% year-over-year driven by App Store and subscriptions. Gross margin expanded 80bps to 46.2% on favorable product mix. The Company returned $27B to shareholders via buybacks and dividends during the quarter. Looking ahead, management expects continued services growth and moderate hardware refresh cycles."
+    },
+    {
+      "form_type": "10-Q",
+      "filed_date": "2026-02-01",
+      "period_of_report": "2025-12-28",
+      "accession_number": "0000320193-26-000010",
+      "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000010/aapl-20251228.htm",
+      "extracted_text": "Item 2. Management's Discussion and Analysis. Q1 revenue reached $124B, up 4.5% YoY, led by iPhone strength in emerging markets. Services margins remained strong at 74%. The Company repurchased $20B of common stock during the quarter. Free cash flow of $36B supported continued capital return."
+    },
+    {
+      "form_type": "8-K",
+      "filed_date": "2026-01-30",
+      "period_of_report": "2026-01-30",
+      "accession_number": "0000320193-26-000009",
+      "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000009/aapl-20260130.htm",
+      "extracted_text": "Apple announced Q1 FY26 financial results. Revenue of $124B, EPS of $2.40, up 7.1% YoY. CEO Tim Cook: 'We delivered record Q1 revenue driven by strong iPhone performance and continued services growth.'"
+    },
+    {
+      "form_type": "8-K",
+      "filed_date": "2025-12-15",
+      "period_of_report": "2025-12-15",
+      "accession_number": "0000320193-25-000055",
+      "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019325000055/aapl-20251215.htm",
+      "extracted_text": "Apple announced the appointment of a new Chief Financial Officer effective January 1, 2026."
+    }
+  ]
+}
