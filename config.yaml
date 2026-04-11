@@ -1,0 +1,46 @@
+# Investment Analyzer — runtime configuration
+# Secrets live in .env. Behavior lives here.
+
+models:
+  data_collector: claude-haiku-4-5-20251001
+  technical: claude-haiku-4-5-20251001
+  fundamental: claude-sonnet-4-6
+  bull: claude-sonnet-4-6
+  bear: claude-sonnet-4-6
+  judge: claude-opus-4-6
+
+# Depth presets control how much data the Data Collector pulls
+# and how much context downstream agents receive.
+depth_presets:
+  quick:
+    price_lookback_days: 90
+    news_days: 14
+    filings_count: 2
+  standard:
+    price_lookback_days: 365
+    news_days: 30
+    filings_count: 4
+  deep:
+    price_lookback_days: 730
+    news_days: 60
+    filings_count: 8
+
+output:
+  report_dir: ./reports
+  log_dir: ./logs
+  save_markdown: true
+
+retry:
+  max_attempts: 3
+  initial_backoff_seconds: 2
+
+# Technical indicator parameters
+indicators:
+  sma_windows: [20, 50, 200]
+  ema_windows: [12, 26]
+  rsi_period: 14
+  macd_fast: 12
+  macd_slow: 26
+  macd_signal: 9
+  bollinger_window: 20
+  bollinger_std: 2
