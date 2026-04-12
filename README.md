@@ -1,2 +1,109 @@
-# Claude-dev
-Development 
+# Nimbus Console
+
+An AWS-style management console for a private cloud. Customers consume services
+from your cloud through a familiar UI: compute, storage, networking, load
+balancing, and security.
+
+The initial focus is **Load Balancers**, which combines the feature sets of
+AWS NLB (Layer 4) and AWS ALB (Layer 7) into a single unified service.
+
+## What's implemented
+
+### Load Balancers
+
+Request shape mirrors AWS so migration guides transfer directly.
+
+**Application load balancers (Layer 7):**
+- HTTP / HTTPS listeners
+- SSL/TLS termination, SSL policies, SNI, multiple certificates per listener
+- Listener rules with conditions: host-header, path-pattern, http-header,
+  http-request-method, query-string, source-ip
+- Actions: forward (multi target group + weights + sticky), redirect,
+  fixed-response, authenticate-oidc
+- HTTP/2, WebSocket-ready, idle timeout, X-Forwarded-For handling modes,
+  desync mitigation mode, drop-invalid-header-fields, WAF fail-open toggle
+
+**Network load balancers (Layer 4):**
+- TCP / UDP / TCP_UDP / TLS listeners
+- Static IP per availability zone
+- ALPN policies, SSL/TLS termination
+- Preserve client IP, connection termination on deregistration
+
+**Common:**
+- Internet-facing / internal
+- IPv4 / dual-stack
+- Cross-zone load balancing
+- Deletion protection
+- Access logs
+- Tags
+- Provisioning lifecycle (provisioning → active)
+
+### Target Groups
+
+- Target types: `instance`, `ip`, `lambda`, `alb`
+- All AWS protocols (HTTP/HTTPS/TCP/UDP/TCP_UDP/TLS/GENEVE)
+- Protocol versions HTTP1/HTTP2/gRPC (ALB)
+- Health checks: protocol, port, path, interval, timeout, healthy /
+  unhealthy thresholds, HTTP matcher codes
+- Stickiness: `lb_cookie`, `app_cookie`, `source_ip`, `source_ip_dest_ip`
+- Load balancing algorithm: round_robin / least_outstanding_requests /
+  weighted_random
+- Slow start (ALB), deregistration delay, preserve client IP / proxy
+  protocol v2 (NLB)
+- Register / deregister targets, simulated health-check convergence
+
+## Tech stack
+
+- **Monorepo** via npm workspaces
+- `shared/`  - TypeScript domain types shared by server + web
+- `server/`  - Express + TypeScript REST API, in-memory store, zod validation
+- `web/`     - React + Vite + TypeScript console UI
+
+## Run
+
+```bash
+npm install                 # install workspaces
+npm run dev:server          # http://localhost:4000
+npm run dev:web             # http://localhost:5173
+# or both at once:
+npm run dev
+```
+
+The API is proxied from the Vite dev server at `/api`. Sample data is seeded
+on startup: 2 VPCs, 3 target groups, 1 ALB (with HTTP→HTTPS redirect and 4
+rules) and 1 NLB (TCP:5432).
+
+## REST API tour
+
+```
+GET    /api/health
+GET    /api/vpcs
+GET    /api/load-balancers
+POST   /api/load-balancers
+GET    /api/load-balancers/:id
+PATCH  /api/load-balancers/:id/attributes
+DELETE /api/load-balancers/:id
+
+GET    /api/target-groups
+POST   /api/target-groups
+GET    /api/target-groups/:id
+POST   /api/target-groups/:id/targets
+DELETE /api/target-groups/:id/targets
+DELETE /api/target-groups/:id
+
+POST   /api/listeners
+GET    /api/listeners?loadBalancerId=...
+DELETE /api/listeners/:id
+POST   /api/listeners/:id/rules
+DELETE /api/listeners/:id/rules/:ruleId
+```
+
+## Next steps
+
+- Swap the in-memory store for Postgres (the `store` interface is designed
+  for this).
+- Add authentication (OIDC) for console users.
+- Implement the Compute / Storage / VPC / IAM services shown as "Coming
+  soon" in the sidebar.
+- Wire the domain events to an actual LB data plane (e.g. envoy or haproxy
+  control plane).

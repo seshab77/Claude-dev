@@ -1,0 +1,19 @@
+{
+  "name": "nimbus-console",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Nimbus — a private cloud management console (AWS-style). Initial service: Load Balancers (NLB + ALB features unified).",
+  "workspaces": [
+    "shared",
+    "server",
+    "web"
+  ],
+  "scripts": {
+    "dev": "npm --workspace server run dev & npm --workspace web run dev",
+    "dev:server": "npm --workspace server run dev",
+    "dev:web": "npm --workspace web run dev",
+    "build": "npm --workspace shared run build && npm --workspace server run build && npm --workspace web run build",
+    "start": "npm --workspace server run start",
+    "typecheck": "npm --workspace shared run build && npm --workspace server run typecheck && npm --workspace web run typecheck"
+  }
+}
