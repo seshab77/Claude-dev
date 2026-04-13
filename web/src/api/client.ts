@@ -1,12 +1,15 @@
 import type {
   LoadBalancer,
   Listener,
+  Subnet,
   TargetGroup,
   Vpc,
   CreateLoadBalancerRequest,
   CreateListenerRequest,
+  CreateSubnetRequest,
   CreateTargetGroupRequest,
   CreateRuleRequest,
+  CreateVpcRequest,
   RegisterTargetsRequest,
   ListenerRule,
 } from "@nimbus/shared";
@@ -32,6 +35,21 @@ async function req<T>(path: string, init?: RequestInit): Promise<T> {
 export const api = {
   // vpcs
   listVpcs: () => req<{ vpcs: Vpc[] }>("/api/vpcs"),
+  getVpc: (id: string) => req<{ vpc: Vpc }>(`/api/vpcs/${id}`),
+  createVpc: (body: CreateVpcRequest) =>
+    req<{ vpc: Vpc }>("/api/vpcs", {
+      method: "POST",
+      body: JSON.stringify(body),
+    }),
+  deleteVpc: (id: string) =>
+    req<void>(`/api/vpcs/${id}`, { method: "DELETE" }),
+  createSubnet: (vpcId: string, body: CreateSubnetRequest) =>
+    req<{ subnet: Subnet; vpc: Vpc }>(`/api/vpcs/${vpcId}/subnets`, {
+      method: "POST",
+      body: JSON.stringify(body),
+    }),
+  deleteSubnet: (vpcId: string, subnetId: string) =>
+    req<void>(`/api/vpcs/${vpcId}/subnets/${subnetId}`, { method: "DELETE" }),
 
   // load balancers
   listLoadBalancers: () =>

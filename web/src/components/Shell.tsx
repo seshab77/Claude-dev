@@ -38,7 +38,7 @@ export function Shell({ children }: PropsWithChildren) {
 
           <h5>Networking</h5>
           <div className="nm-nav">
-            <NavLink to="/networking"><span className="dot" /> VPC</NavLink>
+            <NavLink to="/networking/vpcs"><span className="dot" /> VPCs</NavLink>
             <NavLink to="/elb/load-balancers">
               <span className="dot" style={{ background: "var(--nm-accent)" }} /> Load Balancers
             </NavLink>

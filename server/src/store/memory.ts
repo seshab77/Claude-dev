@@ -84,7 +84,9 @@ export const store = {
 
   // ----- vpcs -----
   listVpcs(): Vpc[] {
-    return [...state.vpcs.values()];
+    return [...state.vpcs.values()].sort((a, b) =>
+      (a.createdAt ?? "") < (b.createdAt ?? "") ? 1 : -1,
+    );
   },
   getVpc(id: string): Vpc | undefined {
     return state.vpcs.get(id);
@@ -92,6 +94,9 @@ export const store = {
   putVpc(v: Vpc): Vpc {
     state.vpcs.set(v.id, v);
     return v;
+  },
+  deleteVpc(id: string): boolean {
+    return state.vpcs.delete(id);
   },
 };
 

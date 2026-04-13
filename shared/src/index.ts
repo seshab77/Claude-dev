@@ -298,6 +298,7 @@ export interface Subnet {
   availabilityZone: string;
   cidrBlock: string;
   vpcId: ID;
+  type?: "public" | "private";
 }
 export interface Vpc {
   id: ID;
@@ -305,9 +306,30 @@ export interface Vpc {
   cidrBlock: string;
   region: string;
   subnets: Subnet[];
+  tags?: Tag[];
+  createdAt?: Timestamp;
 }
 
 // ------- API request shapes -------
+export interface CreateVpcRequest {
+  name: string;
+  cidrBlock: string;
+  region?: string;
+  // Inline subnets created with the VPC, optional.
+  subnets?: Array<{
+    availabilityZone: string;
+    cidrBlock: string;
+    type?: "public" | "private";
+  }>;
+  tags?: Tag[];
+}
+
+export interface CreateSubnetRequest {
+  availabilityZone: string;
+  cidrBlock: string;
+  type?: "public" | "private";
+}
+
 export interface CreateLoadBalancerRequest {
   name: string;
   type: LoadBalancerType;
