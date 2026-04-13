@@ -4,9 +4,12 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "predev": "npm run build --workspace=@nimbus/shared",
     "dev": "vite",
+    "prebuild": "npm run build --workspace=@nimbus/shared",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
+    "pretypecheck": "npm run build --workspace=@nimbus/shared",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
