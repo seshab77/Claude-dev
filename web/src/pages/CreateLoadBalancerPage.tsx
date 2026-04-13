@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import type {
   CreateLoadBalancerRequest,
   LoadBalancerAttributes,
@@ -101,7 +101,10 @@ export function CreateLoadBalancerPage() {
       case "Basic":
         return form.name.trim().length > 0 && /^[A-Za-z0-9-]+$/.test(form.name);
       case "Network":
-        return form.subnetIds.length >= (form.type === "application" ? 2 : 1);
+        return (
+          !!form.vpcId &&
+          form.subnetIds.length >= (form.type === "application" ? 2 : 1)
+        );
       default:
         return true;
     }
@@ -145,6 +148,17 @@ export function CreateLoadBalancerPage() {
       {error && <div className="nm-error">{error}</div>}
 
       {step === "Basic" && <BasicStep form={form} patch={patch} onTypeChange={onTypeChange} />}
+      {step === "Network" && !vpc && (
+        <div className="nm-panel">
+          <h2 className="nm-h2">Network mapping</h2>
+          <div className="nm-empty">
+            You don&rsquo;t have any VPCs yet. A load balancer must live inside a
+            VPC.{" "}
+            <Link to="/networking/vpcs/new">Create a VPC</Link> first, then come
+            back to finish this wizard.
+          </div>
+        </div>
+      )}
       {step === "Network" && vpc && <NetworkStep form={form} patch={patch} vpc={vpc} vpcs={vpcs} />}
       {step === "Attributes" && <AttributesStep form={form} patchAttrs={patchAttrs} />}
       {step === "Tags" && <TagsStep form={form} patch={patch} />}

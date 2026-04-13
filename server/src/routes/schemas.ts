@@ -3,6 +3,24 @@ import { z } from "zod";
 // --- shared primitives ---
 export const zTag = z.object({ key: z.string(), value: z.string() });
 
+// --- VPC ---
+const cidrRe = /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\/\d{1,2}$/;
+const zCidr = z.string().regex(cidrRe, "expected CIDR like 10.0.0.0/16");
+
+export const zCreateSubnet = z.object({
+  availabilityZone: z.string().min(1),
+  cidrBlock: zCidr,
+  type: z.enum(["public", "private"]).optional(),
+});
+
+export const zCreateVpc = z.object({
+  name: z.string().min(1).max(64).regex(/^[A-Za-z0-9-]+$/),
+  cidrBlock: zCidr,
+  region: z.string().optional(),
+  subnets: z.array(zCreateSubnet).optional(),
+  tags: z.array(zTag).optional(),
+});
+
 // --- load balancer ---
 export const zCreateLoadBalancer = z.object({
   name: z.string().min(1).max(32).regex(/^[A-Za-z0-9-]+$/),

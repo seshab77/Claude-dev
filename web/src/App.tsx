@@ -7,6 +7,9 @@ import { CreateLoadBalancerPage } from "./pages/CreateLoadBalancerPage";
 import { TargetGroupsPage } from "./pages/TargetGroupsPage";
 import { TargetGroupDetailsPage } from "./pages/TargetGroupDetailsPage";
 import { CreateTargetGroupPage } from "./pages/CreateTargetGroupPage";
+import { VpcsPage } from "./pages/VpcsPage";
+import { CreateVpcPage } from "./pages/CreateVpcPage";
+import { VpcDetailsPage } from "./pages/VpcDetailsPage";
 import { ComingSoonPage } from "./pages/ComingSoonPage";
 
 export default function App() {
@@ -20,9 +23,11 @@ export default function App() {
         <Route path="/elb/target-groups" element={<TargetGroupsPage />} />
         <Route path="/elb/target-groups/new" element={<CreateTargetGroupPage />} />
         <Route path="/elb/target-groups/:id" element={<TargetGroupDetailsPage />} />
+        <Route path="/networking/vpcs" element={<VpcsPage />} />
+        <Route path="/networking/vpcs/new" element={<CreateVpcPage />} />
+        <Route path="/networking/vpcs/:id" element={<VpcDetailsPage />} />
         <Route path="/vm" element={<ComingSoonPage service="Compute" />} />
         <Route path="/storage" element={<ComingSoonPage service="Storage" />} />
-        <Route path="/networking" element={<ComingSoonPage service="Networking" />} />
         <Route path="/security" element={<ComingSoonPage service="Security" />} />
       </Routes>
     </Shell>

@@ -6,15 +6,18 @@ import { buildListener } from "../domain/listener.js";
 
 export function seed(): void {
   // ---- VPCs & subnets ----
+  const now = new Date().toISOString();
   const vpc: Vpc = {
     id: "vpc-prod",
     name: "prod",
     cidrBlock: "10.10.0.0/16",
     region: "pvt-cloud-1",
+    createdAt: now,
+    tags: [{ key: "env", value: "prod" }],
     subnets: [
-      { id: "subnet-1a", availabilityZone: "pvt-cloud-1a", cidrBlock: "10.10.1.0/24", vpcId: "vpc-prod" },
-      { id: "subnet-1b", availabilityZone: "pvt-cloud-1b", cidrBlock: "10.10.2.0/24", vpcId: "vpc-prod" },
-      { id: "subnet-1c", availabilityZone: "pvt-cloud-1c", cidrBlock: "10.10.3.0/24", vpcId: "vpc-prod" },
+      { id: "subnet-1a", availabilityZone: "pvt-cloud-1a", cidrBlock: "10.10.1.0/24", vpcId: "vpc-prod", type: "public" },
+      { id: "subnet-1b", availabilityZone: "pvt-cloud-1b", cidrBlock: "10.10.2.0/24", vpcId: "vpc-prod", type: "public" },
+      { id: "subnet-1c", availabilityZone: "pvt-cloud-1c", cidrBlock: "10.10.3.0/24", vpcId: "vpc-prod", type: "private" },
     ],
   };
   store.putVpc(vpc);
@@ -24,9 +27,11 @@ export function seed(): void {
     name: "staging",
     cidrBlock: "10.20.0.0/16",
     region: "pvt-cloud-1",
+    createdAt: now,
+    tags: [{ key: "env", value: "staging" }],
     subnets: [
-      { id: "subnet-2a", availabilityZone: "pvt-cloud-1a", cidrBlock: "10.20.1.0/24", vpcId: "vpc-staging" },
-      { id: "subnet-2b", availabilityZone: "pvt-cloud-1b", cidrBlock: "10.20.2.0/24", vpcId: "vpc-staging" },
+      { id: "subnet-2a", availabilityZone: "pvt-cloud-1a", cidrBlock: "10.20.1.0/24", vpcId: "vpc-staging", type: "public" },
+      { id: "subnet-2b", availabilityZone: "pvt-cloud-1b", cidrBlock: "10.20.2.0/24", vpcId: "vpc-staging", type: "private" },
     ],
   };
   store.putVpc(stagingVpc);
