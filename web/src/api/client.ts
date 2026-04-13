@@ -11,8 +11,13 @@ import type {
   ListenerRule,
 } from "@nimbus/shared";
 
+// When deployed, the web is served from Vercel and the API from Render
+// (different origins), so all fetches are prefixed with VITE_API_URL.
+// In local dev the var is empty and Vite's proxy forwards /api → :4000.
+const API_BASE = (import.meta.env.VITE_API_URL ?? "").replace(/\/$/, "");
+
 async function req<T>(path: string, init?: RequestInit): Promise<T> {
-  const res = await fetch(path, {
+  const res = await fetch(`${API_BASE}${path}`, {
     ...init,
     headers: { "content-type": "application/json", ...(init?.headers ?? {}) },
   });

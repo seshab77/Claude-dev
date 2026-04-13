@@ -98,6 +98,44 @@ POST   /api/listeners/:id/rules
 DELETE /api/listeners/:id/rules/:ruleId
 ```
 
+## Deploy a live demo (free, phone-friendly)
+
+The repo ships with `vercel.json` (web) and `render.yaml` (API). Both
+services have free tiers. Flow from a phone browser:
+
+### 1. Deploy the API on Render
+
+1. Go to **render.com** → sign in with GitHub.
+2. **New → Blueprint** → pick this repo → branch
+   `claude/cloud-console-load-balancers-5gFEd`.
+3. Render detects `render.yaml`, shows `nimbus-api` on the free plan →
+   **Apply**.
+4. Wait ~3 min for build. Copy the URL Render assigns, e.g.
+   `https://nimbus-api.onrender.com`. Test it by opening
+   `<url>/api/health` — you should see `{"ok":true,...}`.
+
+### 2. Deploy the web on Vercel
+
+1. Go to **vercel.com** → sign in with GitHub.
+2. **Add New → Project** → import this repo → branch
+   `claude/cloud-console-load-balancers-5gFEd`.
+3. Vercel reads `vercel.json` and pre-fills the build command. Before
+   clicking **Deploy**, expand **Environment Variables** and add:
+   - `VITE_API_URL` = the Render URL from step 1 (e.g.
+     `https://nimbus-api.onrender.com`)
+4. **Deploy**. Vercel gives you a public URL like
+   `https://nimbus-console.vercel.app`. Open it on your phone — done.
+
+### Notes
+
+- Render free-plan services sleep after 15 min idle; the first request
+  wakes it with a ~30s cold start. Subsequent requests are instant.
+- The in-memory store resets on every cold start. For a persistent
+  demo, swap in Postgres via the `store` interface in
+  `server/src/store/memory.ts`.
+- CORS is open (`cors()`) for demo simplicity — lock it to the Vercel
+  origin before going to production.
+
 ## Next steps
 
 - Swap the in-memory store for Postgres (the `store` interface is designed

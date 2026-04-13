@@ -1,0 +1,28 @@
+# Render Blueprint — provisions the Nimbus API on Render's free plan.
+#
+# Deploy:
+#   1. Push this repo to GitHub (already done on this branch).
+#   2. In Render, click "New" → "Blueprint" → connect this repo and branch.
+#   3. Render reads this file, provisions the service, builds, and starts it.
+#   4. Note the resulting URL, e.g. https://nimbus-api.onrender.com
+#      — paste that into Vercel as the `VITE_API_URL` environment variable.
+#
+# Free plan notes:
+#   - Service sleeps after 15 minutes idle; first request wakes it (~30s cold).
+#   - 512 MB RAM, shared CPU, no persistent disk (the in-memory store resets
+#     on every cold start — fine for a demo).
+services:
+  - type: web
+    name: nimbus-api
+    runtime: node
+    plan: free
+    buildCommand: npm ci --include=dev && npm --workspace @nimbus/shared run build && npm --workspace @nimbus/server run build
+    startCommand: node server/dist/index.js
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: "22.12.0"
+      - key: NIMBUS_REGION
+        value: pvt-cloud-1
+      - key: NIMBUS_ACCOUNT
+        value: "000000000000"
