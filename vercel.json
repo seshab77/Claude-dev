@@ -4,6 +4,11 @@
   "buildCommand": "npm --workspace @nimbus/shared run build && npm --workspace @nimbus/web run build",
   "outputDirectory": "web/dist",
   "framework": null,
+  "build": {
+    "env": {
+      "VITE_API_URL": "https://nimbus-api-egqo.onrender.com"
+    }
+  },
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ]
